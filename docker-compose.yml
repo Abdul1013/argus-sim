@@ -1,0 +1,13 @@
+#pulls official Mosquitto image and securely mounts configuration and cryptographic keys as read-only (:ro) files so the container doesn't tamper with them.
+
+services:
+  c2-broker:
+    image: eclipse-mosquitto:latest
+    container_name: argus-c2-broker
+    ports:
+      - "8883:8883"
+    volumes:
+      # Mount the config file
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      # Mount the entire certs directory
+      - ./certs:/mosquitto/config/certs:ro

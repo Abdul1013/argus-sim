@@ -1,0 +1,4 @@
+# Alert on rapid, repeated connection attempts to the mTLS port (8883)
+# This flags potential certificate brute-forcing or TLS flood attacks
+alert tcp any any -> any 8883 (msg:"ARGUS THREAT: Potential Rogue Node Probing C2 Port"; flow:stateless; flags:S; threshold:type both, track by_src, count 5, seconds 10; classtype:attempted-recon; sid:1000001; rev:1;)
+#If any IP attempts to initiate a TCP handshake (flags:S) with our secure port (8883) more than 5 times in 10 seconds, flag it as a threat.
